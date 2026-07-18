@@ -2,17 +2,15 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>360 3D no Quest</title>
+  <title>Galeria 360 3D Correta</title>
   
-  <!-- 1. Carrega o A-Frame -->
   <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
 
-  <!-- 2. Registra o componente Stereo ANTES de carregar o corpo do site -->
   <script>
+    // Componente obrigatório para o efeito 3D (Stereo)
     AFRAME.registerComponent('stereo', {
       schema: { eye: { type: 'string', default: 'left' } },
       init: function () {
-        // Camada 1 para o olho esquerdo, Camada 2 para o olho direito
         this.layer = this.data.eye === 'left' ? 1 : 2;
         this.el.object3D.layers.set(this.layer);
       }
@@ -22,25 +20,56 @@
 <body>
 
   <a-scene>
+    <!-- 1. PRÉ-CARREGAMENTO: Declare todas as suas fotos aqui com IDs diferentes -->
     <a-assets>
-      <!-- Insira o nome do seu arquivo de imagem aqui -->
-      <img id="imagem360" src="1.jpg" crossorigin="anonymous">
+      <img id="foto1" src="1.jpg" crossorigin="anonymous">
+      <img id="foto2" src="360stereo.png" crossorigin="anonymous">
     </a-assets>
 
-    <!-- Olho Esquerdo: Pega a metade de CIMA (offset 0.5) -->
-    <a-sky src="#imagem360" 
-           stereo="eye: left" 
-           material="repeat: 1 0.5; offset: 0 0.5">
-    </a-sky>
+    <!-- Começa apontando para o ID da primeira foto -->
+    <!-- Olho Esquerdo (Metade de CIMA) -->
+    <a-sky id="sky-esquerdo" src="#foto1" stereo="eye: left" material="repeat: 1 0.5; offset: 0 0.5"></a-sky>
     
-    <!-- Olho Direito: Pega a metade de BAIXO (offset 0) -->
-    <a-sky src="#imagem360" 
-           stereo="eye: right" 
-           material="repeat: 1 0.5; offset: 0 0">
-    </a-sky>
+    <!-- Olho Direito (Metade de BAIXO) -->
+    <a-sky id="sky-direito" src="#foto1" stereo="eye: right" material="repeat: 1 0.5; offset: 0 0"></a-sky>
 
     <a-camera look-controls></a-camera>
   </a-scene>
+
+  <script>
+    // 2. LISTA DE IDs: Em vez do nome do arquivo, listamos os IDs do <a-assets>
+    const listaIds = [
+      '#foto1',
+      '#foto2'
+    ];
+    
+    let indiceAtual = 0;
+
+    // Buscamos as duas esferas individualmente por ID para garantir a troca
+    const skyEsquerdo = document.getElementById('sky-esquerdo');
+    const skyDireito = document.getElementById('sky-direito');
+
+    function proximaImagem() {
+      indiceAtual = (indiceAtual + 1) % listaIds.length;
+      const novoId = listaIds[indiceAtual];
+      
+      // Atualiza o atributo de forma que o A-Frame limpe a textura antiga
+      skyEsquerdo.setAttribute('src', novoId);
+      skyDireito.setAttribute('src', novoId);
+
+      console.log("Alterado para o ID: " + novoId);
+    }
+
+    // Contagem de tempo (Troca a cada 5 segundos)
+    setInterval(proximaImagem, 10000);
+
+    // Comando de teclado (Seta Direita)
+    window.addEventListener('keydown', function(evento) {
+      if (evento.key === 'ArrowRight') {
+        proximaImagem();
+      }
+    });
+  </script>
 
 </body>
 </html>
