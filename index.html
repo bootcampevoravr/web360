@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visualizador 360 VR</title>
+
+<script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/oscarmarinmiro/aframe-stereo-component/dist/aframe-stereo-component.min.js"></script>
+
+<style>
+body{
+    margin:0;
+}
+</style>
+
+</head>
+
+<body>
+
+<a-scene>
+
+    <a-assets>
+        <!-- Troque pelo nome da sua imagem -->
+        <img id="foto360" src="equi.png">
+    </a-assets>
+
+    <!-- câmera -->
+    <a-entity camera look-controls></a-entity>
+
+    <!-- olho esquerdo -->
+    <a-entity
+        geometry="primitive:sphere; radius:500"
+        material="shader:flat; src:#foto360; side:back"
+        scale="-1 1 1"
+        stereo="eye:left; mode:top-bottom">
+    </a-entity>
+
+    <!-- olho direito -->
+    <a-entity
+        geometry="primitive:sphere; radius:500"
+        material="shader:flat; src:#foto360; side:back"
+        scale="-1 1 1"
+        stereo="eye:right; mode:top-bottom">
+    </a-entity>
+
+</a-scene>
+
+</body>
+</html>
