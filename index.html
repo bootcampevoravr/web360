@@ -26,12 +26,21 @@
    <!--   <img id="foto2" src="pano.jpeg" crossorigin="anonymous"> -->
     </a-assets>
 
-    <!-- Começa apontando para o ID da primeira foto -->
-    <!-- Olho Esquerdo (Metade de CIMA) -->
-    <a-sky id="sky-esquerdo" src="#foto1" stereo="eye: left" material="repeat: 1 0.5; offset: 0 0.5"></a-sky>
-    
-    <!-- Olho Direito (Metade de BAIXO) -->
-    <a-sky id="sky-direito" src="#foto1" stereo="eye: right" material="repeat: 1 0.5; offset: 0 0"></a-sky>
+ <!-- Olho Esquerdo (Metade de CIMA) - Raio reduzido para 10 metros -->
+<a-sky id="sky-esquerdo" 
+       src="#foto1" 
+       stereo="eye: left" 
+       radius="10"
+       material="repeat: 1 0.5; offset: 0 0.5">
+</a-sky>
+
+<!-- Olho Direito (Metade de BAIXO) - Raio reduzido para 10 metros -->
+<a-sky id="sky-direito" 
+       src="#foto1" 
+       stereo="eye: right" 
+       radius="10"
+       material="repeat: 1 0.5; offset: 0 0">
+</a-sky>
 
     <a-camera look-controls></a-camera>
   </a-scene>
