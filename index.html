@@ -22,15 +22,15 @@
   <a-scene>
     <!-- 1. PRÉ-CARREGAMENTO: Declare todas as suas fotos aqui com IDs diferentes -->
     <a-assets>
-      <img id="foto1" src="2.png" crossorigin="anonymous">
-   <img id="foto2" src="1.jpg" crossorigin="anonymous"> 
+      <img id="foto1" src="1.jpg" crossorigin="anonymous">
+   <img id="foto2" src="robot.jpg" crossorigin="anonymous"> 
     </a-assets>
 
  <!-- Olho Esquerdo (Metade de CIMA) - Raio reduzido para 10 metros -->
 <a-sky id="sky-esquerdo" 
        src="#foto1" 
        stereo="eye: left" 
-       radius="10"
+       radius="2"
        material="repeat: 1 0.5; offset: 0 0.5">
 </a-sky>
 
@@ -38,7 +38,7 @@
 <a-sky id="sky-direito" 
        src="#foto1" 
        stereo="eye: right" 
-       radius="10"
+       radius="2"
        material="repeat: 1 0.5; offset: 0 0">
 </a-sky>
 
